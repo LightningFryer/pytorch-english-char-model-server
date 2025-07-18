@@ -4,6 +4,7 @@ from PIL import Image
 import torch
 import io
 from fastapi.middleware.cors import CORSMiddleware
+from model import EnglishCharacterClassifier
 
 app = FastAPI()
 
@@ -15,14 +16,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-model = torch.load("english_char_model.pt", map_location=torch.device("cpu"), weights_only=False)
+model = EnglishCharacterClassifier(numClasses=26)
+model.load_state_dict(torch.load("english_char_model_state.pt", map_location="cpu"))   
 model.eval()
 
 transform = transforms.Compose([
     transforms.Resize((128, 128)),
     transforms.ToTensor()
 ])
+
+@app.get("/")
+def home():
+    return {"message": "English Character Classifier API"}
 
 @app.post("/predict/")
 async def predict(file: UploadFile = File(...)):
