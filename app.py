@@ -9,7 +9,7 @@ model = torch.load("english_char_model.pt", map_location=torch.device("cpu"))
 model.eval()
 
 transform = transforms.Compose([
-    transforms.Resize((224, 224)),
+    transforms.Resize((128, 128)),
     transforms.ToTensor()
 ])
 
