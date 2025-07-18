@@ -3,8 +3,19 @@ from torchvision import transforms
 from PIL import Image
 import torch
 import io
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 model = torch.load("english_char_model.pt", map_location=torch.device("cpu"))
 model.eval()
 
