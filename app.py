@@ -16,7 +16,7 @@ app.add_middleware(
 )
 
 
-model = torch.load("english_char_model.pt", map_location=torch.device("cpu"))
+model = torch.load("english_char_model.pt", map_location=torch.device("cpu"), weights_only=False)
 model.eval()
 
 transform = transforms.Compose([
