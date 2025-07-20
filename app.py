@@ -3,15 +3,14 @@ from torchvision import transforms
 from PIL import Image
 import torch
 import io
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 from model import EnglishCharacterClassifier
 
 app = FastAPI()
 
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://english-char-model-frontend.vercel.app/"],
+    allow_origins=["http://localhost:3000", "https://english-char-model-frontend.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
