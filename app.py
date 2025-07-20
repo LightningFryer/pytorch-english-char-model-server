@@ -3,7 +3,7 @@ from torchvision import transforms
 from PIL import Image
 import torch
 import io
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from model import EnglishCharacterClassifier
 
 app = FastAPI()
