@@ -8,6 +8,7 @@ from model import EnglishCharacterClassifier
 
 app = FastAPI()
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000", "https://mfp0bs67-3000.inc1.devtunnels.ms"],
@@ -37,4 +38,8 @@ async def predict(file: UploadFile = File(...)):
     with torch.no_grad():
         output = model(input_tensor)
     prediction = torch.argmax(output, dim=1).item()
-    return {"prediction": prediction}
+    
+    classes = [chr(i) for i in range(ord('A'), ord('Z')+1)]
+    predicted_label = classes[prediction]
+    
+    return {"prediction": predicted_label}
